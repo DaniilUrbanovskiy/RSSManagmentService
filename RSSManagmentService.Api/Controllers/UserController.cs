@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RSSManagmentService.Api.Dto.Model;
 using RSSManagmentService.Api.Dto.Request;

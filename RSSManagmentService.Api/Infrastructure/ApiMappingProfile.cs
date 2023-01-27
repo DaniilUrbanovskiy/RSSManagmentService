@@ -17,10 +17,5 @@ namespace RSSManagmentService.Api.Infrastructure
 
             CreateMap<News, Dto.Response.NewsDto>().ForMember(news => news.FeedUrl, config => config.MapFrom(x => x.Feed.Url));
         }
-
-        private static string MapFeedUrl(Feed feed) 
-        {
-            return feed.Url;
-        }
     }
 }

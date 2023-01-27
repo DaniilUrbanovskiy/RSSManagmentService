@@ -10,7 +10,7 @@ namespace RSSManagmentService.Api.Configurations
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "UrlShortener.API",
+                    Title = "RSSManagmentService.API",
                     Version = "v1"
                 });
                 swagger.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
@@ -43,7 +43,7 @@ namespace RSSManagmentService.Api.Configurations
         public static void UseCustomSwagger(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlShortener.Api v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RSSManagmentService.Api v1"));
         }
     }
 }

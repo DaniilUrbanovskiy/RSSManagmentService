@@ -26,7 +26,7 @@ namespace RSSManagmentService.Api.Dto.Request
 
             if (Password.Length > 0 && Password.Length < 8)
             {
-                yield return new ValidationResult("Min. password length - 8 symbols");
+                yield return new ValidationResult("Min password length - 8 symbols");
             }
 
             if (!Email.Contains("@"))
