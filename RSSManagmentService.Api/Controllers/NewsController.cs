@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RSSManagmentService.Api.Dto.Request;
 using RSSManagmentService.BLL;
-using RSSManagmentService.Entities;
 using System.Security.Claims;
 
 namespace RSSManagmentService.Api.Controllers
@@ -10,7 +10,7 @@ namespace RSSManagmentService.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("[controller]")]
-    public class NewslController : ControllerBase
+    public class NewsController : ControllerBase
     {
         private readonly NewsService _newsService;
 
@@ -18,24 +18,31 @@ namespace RSSManagmentService.Api.Controllers
 
         private readonly IMapper _mapper;
 
-        public NewslController(NewsService newsService, UserService userService, IMapper mapper)
+        public NewsController(NewsService newsService, UserService userService, IMapper mapper)
         {
             _newsService = newsService;          
             _userService = userService;
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SetNewsAsReadedAsync(string feedUrl)
+        [HttpPut("read")]
+        public async Task<IActionResult> SetNewsAsReadAsync(NewsDto input)
         {
-            //var user = await _userService.GetByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-            //await _newsService.AddFeedUrlAsync(new FeedUrl
-            //{
-            //    Url = feedUrl,
-            //    CreatedDate = DateTime.Now,
-            //    User = user
-            //});
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            await _newsService.SetNewsAsReadAsync(input.NewsIds, userId);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUnreadNewsByDateAsync([FromHeader]DateFilterDto input)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var user = await _userService.GetByIdAsync(userId);
+
+            var newsList = await _newsService.GetUnreadNewsByDateAsync(input.DateFilter, user);
+            var response = newsList.Select(x => _mapper.Map<Dto.Response.NewsDto>(x));
+            return Ok(response);
         }
     }
 }

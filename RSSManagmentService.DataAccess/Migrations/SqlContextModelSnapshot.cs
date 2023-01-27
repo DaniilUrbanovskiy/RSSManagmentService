@@ -22,7 +22,7 @@ namespace RSSManagmentService.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RSSManagmentService.Entities.FeedUrl", b =>
+            modelBuilder.Entity("RSSManagmentService.Entities.Feed", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,17 +31,16 @@ namespace RSSManagmentService.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FeedUrls");
+                    b.ToTable("Feeds");
                 });
 
             modelBuilder.Entity("RSSManagmentService.Entities.News", b =>
@@ -53,29 +52,26 @@ namespace RSSManagmentService.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FeedUrlId")
+                    b.Property<int?>("FeedId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsReaded")
+                    b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("PublishedDate")
+                    b.Property<DateTimeOffset?>("PublishedDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("SourceLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FeedUrlId");
+                    b.HasIndex("FeedId");
 
                     b.ToTable("News");
                 });
@@ -89,19 +85,15 @@ namespace RSSManagmentService.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -109,26 +101,22 @@ namespace RSSManagmentService.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RSSManagmentService.Entities.FeedUrl", b =>
+            modelBuilder.Entity("RSSManagmentService.Entities.Feed", b =>
                 {
                     b.HasOne("RSSManagmentService.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("RSSManagmentService.Entities.News", b =>
                 {
-                    b.HasOne("RSSManagmentService.Entities.FeedUrl", "FeedUrl")
+                    b.HasOne("RSSManagmentService.Entities.Feed", "Feed")
                         .WithMany()
-                        .HasForeignKey("FeedUrlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FeedId");
 
-                    b.Navigation("FeedUrl");
+                    b.Navigation("Feed");
                 });
 #pragma warning restore 612, 618
         }

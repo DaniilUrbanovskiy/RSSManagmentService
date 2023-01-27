@@ -1,4 +1,4 @@
-﻿namespace RSSManagmentService.Api.Dto
+﻿namespace RSSManagmentService.Api.Dto.Request
 {
     public class UserLoginDto
     {

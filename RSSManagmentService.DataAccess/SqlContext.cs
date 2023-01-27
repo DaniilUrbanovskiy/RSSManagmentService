@@ -12,7 +12,7 @@ namespace RSSManagmentService.DataAccess
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<FeedUrl> FeedUrls { get; set; }
+        public DbSet<Feed> Feeds { get; set; }
 
         public DbSet<News> News { get; set; }
     }

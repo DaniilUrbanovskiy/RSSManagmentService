@@ -10,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwagger();
-builder.Services.AddTransient<FeedUrlService>();
+builder.Services.AddTransient<FeedService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<NewsService>();
-builder.Services.AddTransient<FeedUrlRepository>();
+builder.Services.AddTransient<FeedRepository>();
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<NewsRepository>();
 builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlContext")));
@@ -32,11 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
-{
-    var context = serviceScope.ServiceProvider.GetRequiredService<SqlContext>();
-    context.Database.Migrate();
-}
+using var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
+
+var context = serviceScope.ServiceProvider.GetRequiredService<SqlContext>();
+context.Database.Migrate();
+
 
 app.UseHttpsRedirection();
 app.UseRouting();

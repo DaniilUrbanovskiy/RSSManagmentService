@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RSSManagmentService.Api.Dto;
 using RSSManagmentService.Api.Dto.Model;
-using RSSManagmentService.Api.Dto.Responses;
+using RSSManagmentService.Api.Dto.Request;
+using RSSManagmentService.Api.Dto.Response;
 using RSSManagmentService.Api.Infrastructure;
 using RSSManagmentService.BLL;
 using RSSManagmentService.Entities;
@@ -26,7 +26,6 @@ namespace RSSManagmentService.Api.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
         [HttpPost("registr")]
         public async Task<IActionResult> RegistrAsync([FromBody] UserRegistrDto input)
         {
@@ -42,7 +41,6 @@ namespace RSSManagmentService.Api.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] UserLoginDto input)
         {

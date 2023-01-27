@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using RSSManagmentService.Api.Dto;
 using RSSManagmentService.Entities;
 
 namespace RSSManagmentService.Api.Infrastructure
@@ -8,9 +7,20 @@ namespace RSSManagmentService.Api.Infrastructure
     {
         public ApiMappingProfile()
         {
-            CreateMap<UserRegistrDto, User>();
-            CreateMap<UserLoginDto, User>();
-            CreateMap<FeedUrlDto, FeedUrl>();
+            CreateMap<Dto.Request.UserRegistrDto, User>();
+
+            CreateMap<Dto.Request.UserLoginDto, User>();
+
+            CreateMap<Dto.Request.FeedDto, Feed>();
+
+            CreateMap<Feed, Dto.Response.FeedDto>();
+
+            CreateMap<News, Dto.Response.NewsDto>().ForMember(news => news.FeedUrl, config => config.MapFrom(x => x.Feed.Url));
+        }
+
+        private static string MapFeedUrl(Feed feed) 
+        {
+            return feed.Url;
         }
     }
 }

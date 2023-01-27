@@ -1,4 +1,4 @@
-﻿namespace RSSManagmentService.Api.Dto.Responses
+﻿namespace RSSManagmentService.Api.Dto.Response
 {
     public class TokenResponse
     {

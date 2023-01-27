@@ -30,7 +30,7 @@ namespace RSSManagmentService.DataAccess.Repository
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.FirstAsync(x => x.Id == id);
         }
     }
 }
