@@ -11,10 +11,11 @@ namespace RSSManagmentService.DataAccess.Repository
             _context = context;
         }
 
-        public async Task Add(FeedUrl feedUrl)
+        public async Task<FeedUrl> AddAsync(FeedUrl feedUrl)
         {
             await _context.FeedUrls.AddAsync(feedUrl);
-            await _context.SaveChangesAsync();
+
+            return feedUrl;
         }
     }
 }

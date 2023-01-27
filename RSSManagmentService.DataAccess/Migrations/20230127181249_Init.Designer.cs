@@ -12,7 +12,7 @@ using RSSManagmentService.DataAccess;
 namespace RSSManagmentService.DataAccess.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20230127144708_Init")]
+    [Migration("20230127181249_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,12 +33,6 @@ namespace RSSManagmentService.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsReaded")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -51,6 +45,42 @@ namespace RSSManagmentService.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FeedUrls");
+                });
+
+            modelBuilder.Entity("RSSManagmentService.Entities.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FeedUrlId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsReaded")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("PublishedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeedUrlId");
+
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("RSSManagmentService.Entities.User", b =>
@@ -91,6 +121,17 @@ namespace RSSManagmentService.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RSSManagmentService.Entities.News", b =>
+                {
+                    b.HasOne("RSSManagmentService.Entities.FeedUrl", "FeedUrl")
+                        .WithMany()
+                        .HasForeignKey("FeedUrlId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FeedUrl");
                 });
 #pragma warning restore 612, 618
         }

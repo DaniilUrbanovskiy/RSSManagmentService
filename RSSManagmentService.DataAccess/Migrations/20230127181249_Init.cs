@@ -34,9 +34,7 @@ namespace RSSManagmentService.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IsReaded = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,15 +47,47 @@ namespace RSSManagmentService.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FeedUrlId = table.Column<int>(type: "int", nullable: false),
+                    IsReaded = table.Column<bool>(type: "bit", nullable: false),
+                    PublishedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_News_FeedUrls_FeedUrlId",
+                        column: x => x.FeedUrlId,
+                        principalTable: "FeedUrls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FeedUrls_UserId",
                 table: "FeedUrls",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_News_FeedUrlId",
+                table: "News",
+                column: "FeedUrlId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "News");
+
             migrationBuilder.DropTable(
                 name: "FeedUrls");
 

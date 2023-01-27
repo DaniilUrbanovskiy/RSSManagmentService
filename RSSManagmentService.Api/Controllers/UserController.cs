@@ -8,6 +8,7 @@ using RSSManagmentService.Api.Infrastructure;
 using RSSManagmentService.BLL;
 using RSSManagmentService.Entities;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 
 namespace RSSManagmentService.Api.Controllers
 {
@@ -27,28 +28,28 @@ namespace RSSManagmentService.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("registr")]
-        public async Task<IActionResult> Registr([FromBody] UserRegistrDto input)
+        public async Task<IActionResult> RegistrAsync([FromBody] UserRegistrDto input)
         {
             try
             {
                 var user = _mapper.Map<User>(input);
-                await _userService.Registration(user);
+                await _userService.RegistrationAsync(user);
                 return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(new WebServiceError(System.Net.HttpStatusCode.BadRequest, ex.Message));
+                return BadRequest(new WebServiceError(HttpStatusCode.BadRequest, ex.Message));
             }
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginDto input)
+        public async Task<IActionResult> LoginAsync([FromBody] UserLoginDto input)
         {
             try
             {
                 var user = _mapper.Map<User>(input);
-                user = await _userService.Login(user);
+                user = await _userService.LoginAsync(user);
                 var tokenResponse = JwtHealper.CreateToken(user);
                 var token = new TokenResponse(new JwtSecurityTokenHandler().WriteToken(tokenResponse));
 
@@ -56,7 +57,7 @@ namespace RSSManagmentService.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new WebServiceError(System.Net.HttpStatusCode.BadRequest, ex.Message));
+                return BadRequest(new WebServiceError(HttpStatusCode.BadRequest, ex.Message));
             }
         }
     }

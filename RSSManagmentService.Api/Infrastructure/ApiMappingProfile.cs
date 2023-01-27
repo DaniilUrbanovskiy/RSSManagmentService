@@ -10,6 +10,7 @@ namespace RSSManagmentService.Api.Infrastructure
         {
             CreateMap<UserRegistrDto, User>();
             CreateMap<UserLoginDto, User>();
+            CreateMap<FeedUrlDto, FeedUrl>();
         }
     }
 }
