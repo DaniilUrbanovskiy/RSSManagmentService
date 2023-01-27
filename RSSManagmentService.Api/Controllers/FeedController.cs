@@ -54,6 +54,10 @@ namespace RSSManagmentService.Api.Controllers
             {
                 return BadRequest(new WebServiceError(HttpStatusCode.BadRequest, "Incorrect feed url"));
             }
+            catch (HttpRequestException)
+            {
+                return BadRequest(new WebServiceError(HttpStatusCode.NotFound, "Url not found"));
+            }
             catch (DuplicateNameException)
             {
                 return BadRequest(new WebServiceError(HttpStatusCode.BadRequest, "Feed already exists"));
