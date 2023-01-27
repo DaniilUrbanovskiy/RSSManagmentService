@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSManagmentService.Api", "RSSManagmentService.Api\RSSManagmentService.Api.csproj", "{3D9239D1-E01B-48E7-B9B9-7A7969A93641}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSManagmentService.DataAccess", "RSSManagmentService.DataAccess\RSSManagmentService.DataAccess.csproj", "{3231196B-D10F-497F-A03B-D6E2ACAD8954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSManagmentService.BLL", "RSSManagmentService.BLL\RSSManagmentService.BLL.csproj", "{830E67BA-DC7A-4EE5-95D0-9F14DF544C47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3D9239D1-E01B-48E7-B9B9-7A7969A93641}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D9239D1-E01B-48E7-B9B9-7A7969A93641}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D9239D1-E01B-48E7-B9B9-7A7969A93641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3231196B-D10F-497F-A03B-D6E2ACAD8954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3231196B-D10F-497F-A03B-D6E2ACAD8954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3231196B-D10F-497F-A03B-D6E2ACAD8954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3231196B-D10F-497F-A03B-D6E2ACAD8954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{830E67BA-DC7A-4EE5-95D0-9F14DF544C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{830E67BA-DC7A-4EE5-95D0-9F14DF544C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{830E67BA-DC7A-4EE5-95D0-9F14DF544C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{830E67BA-DC7A-4EE5-95D0-9F14DF544C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
