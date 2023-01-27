@@ -9,8 +9,10 @@ namespace RSSManagmentService.Entities
 
         public string Url { get; set; }
 
-        public string CreatedBy { get; set; }
+        public User User { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public bool IsReaded { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

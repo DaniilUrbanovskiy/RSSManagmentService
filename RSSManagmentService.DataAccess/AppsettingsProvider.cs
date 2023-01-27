@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-
 namespace RSSManagmentService.DataAccess
 {
     public static class AppsettingsProvider

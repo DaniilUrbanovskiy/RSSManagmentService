@@ -14,7 +14,6 @@ builder.Services.AddTransient<FeedUrlService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<FeedUrlRepository>();
 builder.Services.AddTransient<UserRepository>();
-builder.Services.AddTransient<UserFeedUrlRepository>();
 builder.Services.AddDbContext<SqlContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlContext")));
 builder.Services.AddJWTAuthorization(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(ApiMappingProfile));
@@ -29,6 +28,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<SqlContext>();
+    context.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

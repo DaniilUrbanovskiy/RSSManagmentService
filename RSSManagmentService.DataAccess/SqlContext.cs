@@ -13,7 +13,5 @@ namespace RSSManagmentService.DataAccess
         public DbSet<User> Users { get; set; }
 
         public DbSet<FeedUrl> FeedUrls { get; set; }
-
-        public DbSet<UserFeedUrl> UserFeedUrls { get; set; }
     }
 }
